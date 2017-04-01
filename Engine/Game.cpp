@@ -27,7 +27,8 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	frameTimer(),
-	tileMap()
+	tileMap(),
+	player(tileMap, wnd.kbd)
 {
 }
 
@@ -42,9 +43,11 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	float dt = frameTimer.Mark();
+	tileMap.clear();
+
+	player.update(dt);
 
 	tileMap.update();
-	tileMap.setTileTypeAtPos(TileMap::TileType::Player, Vec2(5, 5));
 }
 
 void Game::ComposeFrame()

@@ -3,9 +3,9 @@
 
 void TileMap::setTileTypeAtPos(TileType tileType, Vec2 & pos)
 {
-	assert(pos.x > 0);
+	assert(pos.x >= 0);
 	assert(pos.x < width);
-	assert(pos.y > 0);
+	assert(pos.y >= 0);
 	assert(pos.y < height);
 	tileMap[pos.y * width + pos.x] = tileType;
 }
@@ -38,5 +38,23 @@ void TileMap::update()
 		case TileType::Coin: tileMapColors[i] = coinColor; break;
 		case TileType::Player: tileMapColors[i] = playerColor; break;
 		}
+	}
+}
+
+int TileMap::getTileMapWith()
+{
+	return width;
+}
+
+int TileMap::getTileMapHeight()
+{
+	return height;
+}
+
+void TileMap::clear()
+{
+	for (int i = 0; i < width*height; ++i)
+	{
+		tileMap[i] = TileType::Blank;
 	}
 }

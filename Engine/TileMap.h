@@ -4,7 +4,7 @@
 
 class TileMap
 {
-	static constexpr int tilesWidth = 75, tilesHeight = 50;
+	static constexpr int tilesWidth = 50, tilesHeight = 50;
 	static constexpr int width = (Graphics::ScreenWidth / tilesWidth) - 4;
 	static constexpr int height = Graphics::ScreenHeight / tilesHeight / 2; //12x6
 
@@ -19,6 +19,9 @@ public:
 	TileType getTileTypeAtpos(Vec2& pos);
 	void draw(Graphics& gfx);
 	void update();
+	int getTileMapWith();
+	int getTileMapHeight();
+	void clear();
 private:
 	TileType tileMap[width*height] = { TileType::Blank };
 	Color tileMapColors[width*height] = { Colors::Black };
