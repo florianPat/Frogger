@@ -1,15 +1,15 @@
-#include "Coin.h"
+#include "EnemyFront.h"
 
-Coin::Coin(TileMap& tileMap, Player& player, UpdateFrequency& uf) : tileMap(tileMap), player(player), uf(uf),
-			rng(), dist(0, tileMap.getTileMapHeight()-1), pos(0, 0)
+EnemyFront::EnemyFront(Player& player, TileMap& tileMap, UpdateFrequency& uf) : player(player), tileMap(tileMap),
+			uf(uf), pos(0, 0), rng(), dist(0, tileMap.getTileMapHeight()-1)
 {
 	reset();
 }
 
-void Coin::update(float dt, float updateFrequency)
+void EnemyFront::update(float dt, float updateFrequency)
 {
 	static float dtElapsed = 0;
-	tileMap.setTileTypeAtPos(TileMap::TileType::Coin, pos);
+	tileMap.setTileTypeAtPos(TileMap::TileType::EnemieFront, pos);
 
 	dtElapsed += dt;
 	if (dtElapsed > updateFrequency)
@@ -27,12 +27,12 @@ void Coin::update(float dt, float updateFrequency)
 	}
 }
 
-void Coin::reset()
+void EnemyFront::reset()
 {
 	do
 	{
 		pos.x = tileMap.getTileMapWith() - 1;
 		pos.y = dist(rng);
 	} while (tileMap.getTileTypeAtpos(pos) != TileMap::TileType::Blank);
-	tileMap.setTileTypeAtPos(TileMap::TileType::Coin, pos);
+	tileMap.setTileTypeAtPos(TileMap::TileType::EnemieFront, pos);
 }
