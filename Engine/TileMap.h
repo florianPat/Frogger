@@ -8,10 +8,12 @@ class TileMap
 	static constexpr int width = (Graphics::ScreenWidth / tilesWidth) - 4;
 	static constexpr int height = Graphics::ScreenHeight / tilesHeight / 2; //12x6
 
-	enum class TileType { Blank, Player, EnemieFront, Coin, EnemieBack };
 	Color blankColor = Colors::Black, playerColor = Colors::Blue, enemieFrontColor = Colors::Magenta,
 		coinColor = Colors::Yellow, enemieBackColor = Colors::Red;
+
 public:
+	enum class TileType { Blank, Player, EnemieFront, Coin, EnemieBack };
+
 	TileMap() = default;
 	void setTileTypeAtPos(TileType tileType, Vec2& pos);
 	TileType getTileTypeAtpos(Vec2& pos);

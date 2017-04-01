@@ -20,11 +20,14 @@
  ******************************************************************************************/
 #include "MainWindow.h"
 #include "Game.h"
+#include "Vec2.h"
 
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd )
+	gfx( wnd ),
+	frameTimer(),
+	tileMap()
 {
 }
 
@@ -38,8 +41,13 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	float dt = frameTimer.Mark();
+
+	tileMap.update();
+	tileMap.setTileTypeAtPos(TileMap::TileType::Player, Vec2(5, 5));
 }
 
 void Game::ComposeFrame()
 {
+	tileMap.draw(gfx);
 }
