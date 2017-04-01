@@ -9,6 +9,7 @@ class Player
 public:
 	Player(TileMap& tileMap, Keyboard& keyboard);
 	void update(float dt);
+	Vec2& getPos();
 private:
 	Vec2 pos;
 	TileMap& tileMap;

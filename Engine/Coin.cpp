@@ -1,6 +1,6 @@
 #include "Coin.h"
 
-Coin::Coin(TileMap& tileMap) : tileMap(tileMap)
+Coin::Coin(TileMap& tileMap, Player& player) : tileMap(tileMap), player(player)
 {
 	reset();
 }
@@ -8,14 +8,14 @@ Coin::Coin(TileMap& tileMap) : tileMap(tileMap)
 void Coin::update(float dt)
 {
 	static float dtElapsed = 0;
-		tileMap.setTileTypeAtPos(TileMap::TileType::Coin, pos);
+	tileMap.setTileTypeAtPos(TileMap::TileType::Coin, pos);
 
 	dtElapsed += dt;
 	if (dtElapsed > 1.0f)
 	{
 		dtElapsed = 0;
 		pos.x -= 1;
-		if (pos.x == -1)
+		if (pos.x == -1 || (player.getPos().x == pos.x && player.getPos().y == pos.y))
 		{
 			reset();
 		}

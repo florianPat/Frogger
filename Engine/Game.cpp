@@ -29,7 +29,7 @@ Game::Game( MainWindow& wnd )
 	frameTimer(),
 	tileMap(),
 	player(tileMap, wnd.kbd),
-	coin(tileMap)
+	coin(tileMap, player)
 {
 }
 

@@ -51,3 +51,8 @@ void Player::update(float dt)
 		deltaPos.y = 0;
 	}
 }
+
+Vec2& Player::getPos()
+{
+	return pos;
+}
