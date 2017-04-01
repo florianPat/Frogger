@@ -28,7 +28,8 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	frameTimer(),
 	tileMap(),
-	player(tileMap, wnd.kbd)
+	player(tileMap, wnd.kbd),
+	coin(tileMap)
 {
 }
 
@@ -46,6 +47,7 @@ void Game::UpdateModel()
 	tileMap.clear();
 
 	player.update(dt);
+	coin.update(dt);
 
 	tileMap.update();
 }

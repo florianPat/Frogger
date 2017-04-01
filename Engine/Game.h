@@ -26,6 +26,7 @@
 #include "FrameTimer.h"
 #include "TileMap.h"
 #include "Player.h"
+#include "Coin.h"
 
 class Game
 {
@@ -48,5 +49,6 @@ private:
 	FrameTimer frameTimer;
 	TileMap tileMap;
 	Player player;
+	Coin coin;
 	/********************************/
 };
