@@ -5,7 +5,7 @@ Player::Player(TileMap& tileMap, Keyboard& keyboard) : tileMap(tileMap), kbd(key
 {
 }
 
-void Player::update(float dt)
+void Player::update(float dt, float updateFrequency)
 {
 	static Vec2 deltaPos(0, 0);
 	static bool pressed = false;
@@ -40,7 +40,7 @@ void Player::update(float dt)
 	tileMap.setTileTypeAtPos(TileMap::TileType::Player, pos);
 
 	dtElapsed += dt;
-	if (dtElapsed > 1.0f)
+	if (dtElapsed > updateFrequency)
 	{
 		pos += deltaPos;
 

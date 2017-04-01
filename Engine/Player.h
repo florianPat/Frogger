@@ -8,7 +8,7 @@ class Player
 {
 public:
 	Player(TileMap& tileMap, Keyboard& keyboard);
-	void update(float dt);
+	void update(float dt, float updateFrequency);
 	Vec2& getPos();
 private:
 	Vec2 pos;

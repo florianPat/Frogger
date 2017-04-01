@@ -27,6 +27,7 @@
 #include "TileMap.h"
 #include "Player.h"
 #include "Coin.h"
+#include "UpdateFrequency.h"
 
 class Game
 {
@@ -50,5 +51,6 @@ private:
 	TileMap tileMap;
 	Player player;
 	Coin coin;
+	UpdateFrequency updateFrequency;
 	/********************************/
 };

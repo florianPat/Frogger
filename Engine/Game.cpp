@@ -28,14 +28,15 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	frameTimer(),
 	tileMap(),
+	updateFrequency(),
 	player(tileMap, wnd.kbd),
-	coin(tileMap, player)
+	coin(tileMap, player, updateFrequency)
 {
 }
 
 void Game::Go()
 {
-	gfx.BeginFrame();	
+	gfx.BeginFrame();
 	UpdateModel();
 	ComposeFrame();
 	gfx.EndFrame();
@@ -46,8 +47,8 @@ void Game::UpdateModel()
 	float dt = frameTimer.Mark();
 	tileMap.clear();
 
-	player.update(dt);
-	coin.update(dt);
+	player.update(dt, updateFrequency.getUpdateFrequency());
+	coin.update(dt, updateFrequency.getUpdateFrequency());
 
 	tileMap.update();
 }

@@ -1,23 +1,27 @@
 #include "Coin.h"
 
-Coin::Coin(TileMap& tileMap, Player& player) : tileMap(tileMap), player(player)
+Coin::Coin(TileMap& tileMap, Player& player, UpdateFrequency& uf) : tileMap(tileMap), player(player), uf(uf)
 {
 	reset();
 }
 
-void Coin::update(float dt)
+void Coin::update(float dt, float updateFrequency)
 {
 	static float dtElapsed = 0;
 	tileMap.setTileTypeAtPos(TileMap::TileType::Coin, pos);
 
 	dtElapsed += dt;
-	if (dtElapsed > 1.0f)
+	if (dtElapsed > updateFrequency)
 	{
 		dtElapsed = 0;
 		pos.x -= 1;
 		if (pos.x == -1 || (player.getPos().x == pos.x && player.getPos().y == pos.y))
 		{
 			reset();
+			if (pos.x != -1)
+			{
+				uf.setUpdateFrequency(uf.getUpdateFrequency() * 0.9f);
+			}
 		}
 	}
 }
