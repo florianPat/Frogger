@@ -1,6 +1,7 @@
 #include "Coin.h"
 
-Coin::Coin(TileMap& tileMap, Player& player, UpdateFrequency& uf) : tileMap(tileMap), player(player), uf(uf)
+Coin::Coin(TileMap& tileMap, Player& player, UpdateFrequency& uf) : tileMap(tileMap), player(player), uf(uf),
+																	rng(), dist(0, tileMap.getTileMapHeight()-1)
 {
 	reset();
 }
@@ -29,5 +30,5 @@ void Coin::update(float dt, float updateFrequency)
 void Coin::reset()
 {
 	pos.x = tileMap.getTileMapWith() - 1;
-	pos.y = tileMap.getTileMapHeight() / 2;
+	pos.y = dist(rng);
 }

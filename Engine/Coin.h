@@ -4,6 +4,7 @@
 #include "TileMap.h"
 #include "Player.h"
 #include "UpdateFrequency.h"
+#include <random>
 
 class Coin
 {
@@ -17,5 +18,7 @@ private:
 	TileMap& tileMap;
 	Player& player;
 	UpdateFrequency& uf;
+	std::mt19937 rng;
+	std::uniform_int_distribution<int> dist;
 };
 
