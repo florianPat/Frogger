@@ -29,6 +29,7 @@
 #include "Coin.h"
 #include "UpdateFrequency.h"
 #include "EnemyFront.h"
+#include "EnemyBack.h"
 
 class Game
 {
@@ -54,5 +55,6 @@ private:
 	Coin coin;
 	UpdateFrequency updateFrequency;
 	EnemyFront enemyFront;
+	EnemyBack enemyBack;
 	/********************************/
 };

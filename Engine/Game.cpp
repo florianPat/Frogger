@@ -31,7 +31,8 @@ Game::Game( MainWindow& wnd )
 	updateFrequency(),
 	player(tileMap, wnd.kbd),
 	coin(tileMap, player, updateFrequency),
-	enemyFront(player, tileMap, updateFrequency)
+	enemyBack(tileMap, player, updateFrequency),
+	enemyFront(player, tileMap, updateFrequency, enemyBack)
 {
 }
 
@@ -51,6 +52,7 @@ void Game::UpdateModel()
 	player.update(dt, updateFrequency.getUpdateFrequency());
 	coin.update(dt, updateFrequency.getUpdateFrequency());
 	enemyFront.update(dt, updateFrequency.getUpdateFrequency());
+	enemyBack.update(dt, updateFrequency.getUpdateFrequency());
 
 	tileMap.update();
 }

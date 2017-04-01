@@ -1,7 +1,7 @@
 #include "EnemyFront.h"
 
-EnemyFront::EnemyFront(Player& player, TileMap& tileMap, UpdateFrequency& uf) : player(player), tileMap(tileMap),
-			uf(uf), pos(0, 0), rng(), dist(0, tileMap.getTileMapHeight()-1)
+EnemyFront::EnemyFront(Player& player, TileMap& tileMap, UpdateFrequency& uf, EnemyBack& enemyBack) : player(player), 
+			tileMap(tileMap), uf(uf), pos(0, 0), rng(), dist(0, tileMap.getTileMapHeight()-1), enemyBack(enemyBack)
 {
 	reset();
 }
@@ -18,11 +18,12 @@ void EnemyFront::update(float dt, float updateFrequency)
 		pos.x -= 1;
 		if (pos.x == -1 || (player.getPos().x == pos.x && player.getPos().y == pos.y))
 		{
-			reset();
 			if (pos.x != -1)
 			{
 				uf.setUpdateFrequency(uf.getUpdateFrequency() * updateFrequencyMultiply);
+				enemyBack.setColums(enemyBack.getColums() + 1);
 			}
+			reset();
 		}
 	}
 }
