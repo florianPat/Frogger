@@ -23,7 +23,7 @@ void EnemyBack::update(float dt, float updateFrequency)
 		}
 	}
 
-	for (int y = 0; y < tileMap.getTileMapHeight() - 1; ++y)
+	for (int y = 0; y < tileMap.getTileMapHeight(); ++y)
 	{
 		for (int x = 0; x < nColums; ++x)
 		{
