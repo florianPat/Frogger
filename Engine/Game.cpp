@@ -26,13 +26,7 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	frameTimer(),
-	tileMap(),
-	updateFrequency(),
-	player(tileMap, wnd.kbd),
-	coin(tileMap, player, updateFrequency),
-	enemyBack(tileMap, player, updateFrequency),
-	enemyFront(player, tileMap, updateFrequency, enemyBack)
+	frameTimer()
 {
 }
 
@@ -47,17 +41,8 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	float dt = frameTimer.Mark();
-	tileMap.clear();
-
-	player.update(dt, updateFrequency.getUpdateFrequency());
-	coin.update(dt, updateFrequency.getUpdateFrequency());
-	enemyFront.update(dt, updateFrequency.getUpdateFrequency());
-	enemyBack.update(dt, updateFrequency.getUpdateFrequency());
-
-	tileMap.update();
 }
 
 void Game::ComposeFrame()
 {
-	tileMap.draw(gfx);
 }

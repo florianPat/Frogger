@@ -24,12 +24,6 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "FrameTimer.h"
-#include "TileMap.h"
-#include "Player.h"
-#include "Coin.h"
-#include "UpdateFrequency.h"
-#include "EnemyFront.h"
-#include "EnemyBack.h"
 
 class Game
 {
@@ -50,11 +44,5 @@ private:
 	/********************************/
 	/*  User Variables              */
 	FrameTimer frameTimer;
-	TileMap tileMap;
-	Player player;
-	Coin coin;
-	UpdateFrequency updateFrequency;
-	EnemyFront enemyFront;
-	EnemyBack enemyBack;
 	/********************************/
 };
