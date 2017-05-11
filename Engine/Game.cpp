@@ -27,12 +27,12 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	frameTimer(),
-	player(wnd.kbd, gfx, { gfx.ScreenWidth / 2, gfx.ScreenHeight - 64}),
-	cars()
+	cars(),
+	player(wnd.kbd, gfx, { gfx.ScreenWidth / 2, gfx.ScreenHeight - 64 }, cars)
 {
 	for (int i = 0; i < numCars; ++i)
 	{
-		cars.push_back(Car(i * 100, gfx));
+		cars.push_back(Car(i * 100.0f, gfx));
 	}
 }
 

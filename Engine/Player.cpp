@@ -1,10 +1,11 @@
 #include "Player.h"
 
-Player::Player(Keyboard & keyboard, Graphics & graphics, const Vec2& pos) : kbd(keyboard), gfx(graphics), pos(pos), boundingBox(pos, (float)width, (float)height)
+Player::Player(Keyboard & keyboard, Graphics & graphics, const Vec2& pos, std::vector<Car>& cars) : kbd(keyboard), 
+gfx(graphics), pos(pos), boundingBox(pos, (float)width, (float)height), cars(cars), startingPos(pos)
 {
 }
 
-void Player::update(float dt)
+void Player::handleInput(float dt)
 {
 	Vec2 deltaPos = {};
 	if (kbd.KeyIsPressed(VK_LEFT))
@@ -29,11 +30,29 @@ void Player::update(float dt)
 		else
 			deltaPos.y = -1;
 	}
-	
+
 	deltaPos.Normalize();
 	deltaPos *= speed * dt;
 
 	pos += deltaPos;
+}
+
+void Player::handlePhysik()
+{
+	for (auto it = cars.begin(); it != cars.end(); ++it)
+	{
+		if (isColliding(it->getRect()))
+		{
+			pos = startingPos;
+		}
+	}
+}
+
+void Player::update(float dt)
+{
+	handleInput(dt);
+
+	handlePhysik();
 
 	if (pos.x < 0)
 		pos.x = 0;
@@ -55,7 +74,7 @@ void Player::draw()
 	gfx.DrawRect(boundingBox, color);
 }
 
-bool Player::isColliding(const RectF & other)
+bool Player::isColliding(RectF & other)
 {
 	return boundingBox.IsOverlappingWith(other);
 }
