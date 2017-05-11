@@ -26,7 +26,8 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	frameTimer()
+	frameTimer(),
+	player(wnd.kbd, gfx, { gfx.ScreenWidth / 2, gfx.ScreenHeight - 64})
 {
 }
 
@@ -41,8 +42,10 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	float dt = frameTimer.Mark();
+	player.update(dt);
 }
 
 void Game::ComposeFrame()
 {
+	player.draw();
 }
