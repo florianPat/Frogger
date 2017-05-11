@@ -25,6 +25,8 @@
 #include "Graphics.h"
 #include "FrameTimer.h"
 #include "Player.h"
+#include "Car.h"
+#include <vector>
 
 class Game
 {
@@ -46,5 +48,9 @@ private:
 	/*  User Variables              */
 	FrameTimer frameTimer;
 	Player player;
+	std::vector<Car> cars;
+	static constexpr int numCars = 5;
+	static constexpr int waitTime = 120; //Make random every new turn
+	int delay = 0, i = waitTime;
 	/********************************/
 };

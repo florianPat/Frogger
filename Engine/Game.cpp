@@ -27,8 +27,13 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	frameTimer(),
-	player(wnd.kbd, gfx, { gfx.ScreenWidth / 2, gfx.ScreenHeight - 64})
+	player(wnd.kbd, gfx, { gfx.ScreenWidth / 2, gfx.ScreenHeight - 64}),
+	cars()
 {
+	for (int i = 0; i < numCars; ++i)
+	{
+		cars.push_back(Car(i * 100, gfx));
+	}
 }
 
 void Game::Go()
@@ -43,9 +48,48 @@ void Game::UpdateModel()
 {
 	float dt = frameTimer.Mark();
 	player.update(dt);
+	if (delay == numCars)
+	{
+		for (auto it = cars.begin(); it != cars.end(); ++it)
+		{
+			it->update(dt);
+		}
+	}
+	else
+	{
+		auto it = cars.begin();
+		for (int z = 0; z < delay; z++, it++)
+		{
+			it->update(dt);
+		}
+	}
 }
 
 void Game::ComposeFrame()
 {
 	player.draw();
+	if (delay == numCars)
+	{
+		for (auto it = cars.begin(); it != cars.end(); ++it)
+		{
+			it->draw();
+		}
+	}
+	else
+	{
+		if (i == 0)
+		{
+			delay++;
+			i = waitTime;
+		}
+		else
+		{
+			auto it = cars.begin();
+			for (int z = 0; z < delay; z++, it++)
+			{
+				it->draw();
+			}
+			i--;
+		}
+	}
 }
