@@ -28,6 +28,7 @@
 #include "Car.h"
 #include <vector>
 #include "Lake.h"
+#include "Win.h"
 
 class Game
 {
@@ -48,12 +49,21 @@ private:
 	/********************************/
 	/*  User Variables              */
 	FrameTimer frameTimer;
+
 	Player player;
-	std::vector<Car> cars;
+
 	static constexpr int numCars = 5;
-	static constexpr int padding = 10;
+	std::vector<Car> cars;
+
+	static constexpr float paddingBeforeLake = 32.0f;
+	float lakeHeight = gfx.ScreenHeight / 3.0f;
+	static constexpr int paddingAfterLake = 10;
+	Lake lake;
+
 	static constexpr int waitTime = 120; //Make random every new turn
 	int delay = 0, i = waitTime;
-	Lake lake;
+
+	Win win;
+	bool isWin = false;
 	/********************************/
 };

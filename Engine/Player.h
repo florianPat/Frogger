@@ -8,6 +8,7 @@
 #include <vector>
 #include "Car.h"
 #include "Lake.h"
+#include "Win.h"
 
 class Player
 {
@@ -16,19 +17,20 @@ class Player
 	RectF boundingBox;
 	static constexpr Color color = Colors::Green;
 	static constexpr int width = 32, height = 32;
-	static constexpr float speed = 50.0f;
+	static constexpr float speed = 100.0f;
 
 	std::vector<Car>& cars;
 	Lake& lake;
+	Win& win;
 
 	Keyboard& kbd;
 	Graphics& gfx;
 private:
 	void handleInput(float dt);
-	void handlePhysik();
+	void handlePhysik(bool* isWin);
 public:
-	Player(Keyboard& keyboard, Graphics& graphics, const Vec2& pos, std::vector<Car>& cars, Lake& lake);
-	void update(float dt);
+	Player(Keyboard& keyboard, Graphics& graphics, const Vec2& pos, std::vector<Car>& cars, Lake& lake, Win& win);
+	void update(float dt, bool* isWin);
 	void draw();
 	bool isColliding(RectF& other);
 };

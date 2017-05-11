@@ -1,8 +1,9 @@
 #include "Player.h"
 
-Player::Player(Keyboard & keyboard, Graphics & graphics, const Vec2& pos, std::vector<Car>& cars, Lake& lake) : 
+Player::Player(Keyboard & keyboard, Graphics & graphics, const Vec2& pos, std::vector<Car>& cars, Lake& lake, Win& win)
+	: 
 	kbd(keyboard), gfx(graphics), pos(pos), boundingBox(pos, (float)width, (float)height), cars(cars), 
-	startingPos(pos), lake(lake)
+	startingPos(pos), lake(lake), win(win)
 {
 }
 
@@ -38,8 +39,10 @@ void Player::handleInput(float dt)
 	pos += deltaPos;
 }
 
-void Player::handlePhysik()
+void Player::handlePhysik(bool* isWin)
 {
+	*isWin = isColliding(win.getBoundingBox());
+
 	for (auto it = cars.begin(); it != cars.end(); ++it)
 	{
 		if (isColliding(it->getRect()))
@@ -64,11 +67,11 @@ void Player::handlePhysik()
 	}
 }
 
-void Player::update(float dt)
+void Player::update(float dt, bool* isWin)
 {
 	handleInput(dt);
 
-	handlePhysik();
+	handlePhysik(isWin);
 
 	if (pos.x < 0)
 		pos.x = 0;

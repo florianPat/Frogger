@@ -21,6 +21,7 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include "Vec2.h"
+#include "SpriteCodex.h"
 
 Game::Game(MainWindow& wnd)
 	:
@@ -28,12 +29,13 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	frameTimer(),
 	cars(),
-	lake(20, gfx),
-	player(wnd.kbd, gfx, { gfx.ScreenWidth / 2, gfx.ScreenHeight - 48 }, cars, lake)
+	lake(paddingBeforeLake, gfx),
+	win(),
+	player(wnd.kbd, gfx, { gfx.ScreenWidth / 2.0f, gfx.ScreenHeight - 48.0f /*player width*/ }, cars, lake, win)
 {
 	for (int i = 0; i < numCars; ++i)
 	{
-		cars.push_back(Car(padding + gfx.ScreenHeight / 3.0f + 20 + i * 70.0f, gfx));
+		cars.push_back(Car(paddingAfterLake + paddingBeforeLake + lakeHeight + i * 70.0f, gfx));
 	}
 }
 
@@ -48,28 +50,39 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	float dt = frameTimer.Mark();
-	player.update(dt);
-	if (delay == numCars)
+	
+	if (!isWin)
 	{
-		for (auto it = cars.begin(); it != cars.end(); ++it)
-		{
-			it->update(dt);
-		}
-	}
-	else
-	{
-		auto it = cars.begin();
-		for (int z = 0; z < delay; z++, it++)
-		{
-			it->update(dt);
-		}
-	}
+		player.update(dt, &isWin);
 
-	lake.update(dt);
+		if (delay == numCars)
+		{
+			for (auto it = cars.begin(); it != cars.end(); ++it)
+			{
+				it->update(dt);
+			}
+		}
+		else
+		{
+			auto it = cars.begin();
+			for (int z = 0; z < delay; z++, it++)
+			{
+				it->update(dt);
+			}
+		}
+
+		lake.update(dt);
+	}
 }
 
 void Game::ComposeFrame()
 {
+	if (isWin)
+	{
+		SpriteCodex::DrawWin(gfx.ScreenWidth / 2, gfx.ScreenHeight / 2, gfx);
+		return;
+	}
+
 	if (delay == numCars)
 	{
 		for (auto it = cars.begin(); it != cars.end(); ++it)
