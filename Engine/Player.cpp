@@ -1,7 +1,8 @@
 #include "Player.h"
 
-Player::Player(Keyboard & keyboard, Graphics & graphics, const Vec2& pos, std::vector<Car>& cars) : kbd(keyboard), 
-gfx(graphics), pos(pos), boundingBox(pos, (float)width, (float)height), cars(cars), startingPos(pos)
+Player::Player(Keyboard & keyboard, Graphics & graphics, const Vec2& pos, std::vector<Car>& cars, Lake& lake) : 
+	kbd(keyboard), gfx(graphics), pos(pos), boundingBox(pos, (float)width, (float)height), cars(cars), 
+	startingPos(pos), lake(lake)
 {
 }
 
@@ -44,7 +45,22 @@ void Player::handlePhysik()
 		if (isColliding(it->getRect()))
 		{
 			pos = startingPos;
+			return;
 		}
+	}
+
+	if (isColliding(lake.getBoundingBox()))
+	{
+		bool isInWater = true;
+
+		std::vector<RectF> floatsBox = lake.getFloatsBoundingBox();
+		for (auto it = floatsBox.begin(); it != floatsBox.end(); ++it)
+		{
+			isInWater = !(isColliding(*it));
+		}
+
+		if (isInWater)
+			pos = startingPos;
 	}
 }
 

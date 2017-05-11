@@ -22,17 +22,18 @@
 #include "Game.h"
 #include "Vec2.h"
 
-Game::Game( MainWindow& wnd )
+Game::Game(MainWindow& wnd)
 	:
-	wnd( wnd ),
-	gfx( wnd ),
+	wnd(wnd),
+	gfx(wnd),
 	frameTimer(),
 	cars(),
-	player(wnd.kbd, gfx, { gfx.ScreenWidth / 2, gfx.ScreenHeight - 64 }, cars)
+	lake(20, gfx),
+	player(wnd.kbd, gfx, { gfx.ScreenWidth / 2, gfx.ScreenHeight - 48 }, cars, lake)
 {
 	for (int i = 0; i < numCars; ++i)
 	{
-		cars.push_back(Car(i * 100.0f, gfx));
+		cars.push_back(Car(padding + gfx.ScreenHeight / 3.0f + 20 + i * 70.0f, gfx));
 	}
 }
 
@@ -63,11 +64,12 @@ void Game::UpdateModel()
 			it->update(dt);
 		}
 	}
+
+	lake.update(dt);
 }
 
 void Game::ComposeFrame()
 {
-	player.draw();
 	if (delay == numCars)
 	{
 		for (auto it = cars.begin(); it != cars.end(); ++it)
@@ -92,4 +94,8 @@ void Game::ComposeFrame()
 			i--;
 		}
 	}
+
+	lake.draw();
+
+	player.draw();
 }

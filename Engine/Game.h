@@ -27,6 +27,7 @@
 #include "Player.h"
 #include "Car.h"
 #include <vector>
+#include "Lake.h"
 
 class Game
 {
@@ -50,7 +51,9 @@ private:
 	Player player;
 	std::vector<Car> cars;
 	static constexpr int numCars = 5;
+	static constexpr int padding = 10;
 	static constexpr int waitTime = 120; //Make random every new turn
 	int delay = 0, i = waitTime;
+	Lake lake;
 	/********************************/
 };

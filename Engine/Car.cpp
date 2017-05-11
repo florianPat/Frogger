@@ -1,6 +1,6 @@
 #include "Car.h"
 
-Car::Car(float yPos, Graphics & gfx) : gfx(gfx), width(48), height(48), pos(752, yPos),
+Car::Car(float yPos, Graphics & gfx) : gfx(gfx), width(50), height(48), pos(752, yPos),
 										boundingBox(pos, width, height)
 {
 }
