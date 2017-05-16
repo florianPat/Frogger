@@ -8,15 +8,16 @@
 
 class Lake
 {
+public:
 	class Float
 	{
 		RectF boundingBox;
 		Vec2 pos;
 		int width;
 		static constexpr int height = 40;
-		int direction; //Make random
 		static constexpr Color color = Colors::MakeRGB(165, 122, 11);
-		static constexpr int speed = 50;
+		static constexpr int constSpeed = 50; //Make random
+		int speed;
 
 		Graphics& gfx;
 	public:
@@ -24,8 +25,9 @@ class Lake
 		void update(float dt);
 		void draw();
 		RectF getBoundingBox();
+		int getSpeed();
 	};
-
+private:
 	Vec2 pos;
 	RectF boundingBox;
 	static constexpr Color color = Colors::Blue;
@@ -40,6 +42,6 @@ public:
 	Lake(float yPos, Graphics& gfx);
 	void draw();
 	void update(float dt);
-	std::vector<RectF> getFloatsBoundingBox();
+	std::vector<Float> getFloats();
 	RectF getBoundingBox();
 };

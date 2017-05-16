@@ -39,7 +39,7 @@ void Player::handleInput(float dt)
 	pos += deltaPos;
 }
 
-void Player::handlePhysik(bool* isWin)
+void Player::handlePhysik(bool* isWin, float dt)
 {
 	*isWin = isColliding(win.getBoundingBox());
 
@@ -56,10 +56,14 @@ void Player::handlePhysik(bool* isWin)
 	{
 		bool isInWater = true;
 
-		std::vector<RectF> floatsBox = lake.getFloatsBoundingBox();
+		std::vector<Lake::Float> floatsBox = lake.getFloats();
 		for (auto it = floatsBox.begin(); it != floatsBox.end(); ++it)
 		{
-			isInWater = !(isColliding(*it));
+			if (isColliding(it->getBoundingBox()))
+			{
+				isInWater = false;
+				pos.x += it->getSpeed() * dt;
+			}
 		}
 
 		if (isInWater)
@@ -71,7 +75,7 @@ void Player::update(float dt, bool* isWin)
 {
 	handleInput(dt);
 
-	handlePhysik(isWin);
+	handlePhysik(isWin, dt);
 
 	if (pos.x < 0)
 		pos.x = 0;

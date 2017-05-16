@@ -27,7 +27,7 @@ class Player
 	Graphics& gfx;
 private:
 	void handleInput(float dt);
-	void handlePhysik(bool* isWin);
+	void handlePhysik(bool* isWin, float dt);
 public:
 	Player(Keyboard& keyboard, Graphics& graphics, const Vec2& pos, std::vector<Car>& cars, Lake& lake, Win& win);
 	void update(float dt, bool* isWin);
