@@ -1,6 +1,6 @@
 #include "Lake.h"
 
-Lake::Float::Float(int yPos, int width, int direction, Graphics& gfx) : width(width), 
+Lake::Float::Float(int yPos, int width, int direction, Graphics& gfx, int constSpeed) : width(width), constSpeed(constSpeed),
 													boundingBox(pos, width, height), gfx(gfx), speed(direction > 0 ? constSpeed : -constSpeed),
 													pos((direction < 0 ? gfx.ScreenWidth - width : 0.0f), yPos)
 {
@@ -51,12 +51,12 @@ int Lake::Float::getSpeed()
 }
 
 Lake::Lake(float yPos, Graphics & gfx) : pos(0, yPos), gfx(gfx), 
-														boundingBox(pos, (float)gfx.ScreenWidth, gfx.ScreenHeight / 3.0f), 
-														floats()
+										 boundingBox(pos, (float)gfx.ScreenWidth, gfx.ScreenHeight / 3.0f), 
+										 floats(), rng(), distFloatSpeed(30, 70), distWaitTime(90, 120)
 {
 	for (int i = 0; i < numFloats; ++i)
 	{
-		floats.push_back(Float((int)yPos + i * 40, 100 /*random! #width*/, 1, gfx));
+		floats.push_back(Float((int)yPos + i * 40, distWaitTime(rng) /*width*/, 1, gfx, distFloatSpeed(rng)));
 	}
 }
 
@@ -73,10 +73,10 @@ void Lake::draw()
 	}
 	else
 	{
-		if (i == 0)
+		if (waitTime == 0)
 		{
 			delay++;
-			i = waitTime;
+			waitTime = distWaitTime(rng);
 		}
 		else
 		{
@@ -85,7 +85,7 @@ void Lake::draw()
 			{
 				it->draw();
 			}
-			i--;
+			waitTime--;
 		}
 	}
 }

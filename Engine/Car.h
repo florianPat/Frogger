@@ -10,12 +10,12 @@ class Car
 	Vec2 pos;
 	RectF boundingBox;
 	int width, height;
-	static constexpr int speed = 100;
+	int speed;
 	static constexpr Color color = Colors::Red;
 
 	Graphics& gfx;
 public:
-	Car(float yPos, Graphics& gfx);
+	Car(float yPos, Graphics& gfx, int speed);
 	void update(float dt);
 	void draw();
 	RectF getRect();

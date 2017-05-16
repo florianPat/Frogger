@@ -31,11 +31,12 @@ Game::Game(MainWindow& wnd)
 	cars(),
 	lake(paddingBeforeLake, gfx),
 	win(),
-	player(wnd.kbd, gfx, { gfx.ScreenWidth / 2.0f, gfx.ScreenHeight - 48.0f /*player width*/ }, cars, lake, win)
+	player(wnd.kbd, gfx, { gfx.ScreenWidth / 2.0f, gfx.ScreenHeight - 48.0f /*player width*/ }, cars, lake, win),
+	rng(), distWaitTime(100, 130), distCarSpeed(100, 150)
 {
 	for (int i = 0; i < numCars; ++i)
 	{
-		cars.push_back(Car(paddingAfterLake + paddingBeforeLake + lakeHeight + i * 70.0f, gfx));
+		cars.push_back(Car(paddingAfterLake + paddingBeforeLake + lakeHeight + i * paddingBetweenCars, gfx, distCarSpeed(rng)));
 	}
 }
 
@@ -92,10 +93,10 @@ void Game::ComposeFrame()
 	}
 	else
 	{
-		if (i == 0)
+		if (waitTime == 0)
 		{
 			delay++;
-			i = waitTime;
+			waitTime = distWaitTime(rng);
 		}
 		else
 		{
@@ -104,7 +105,7 @@ void Game::ComposeFrame()
 			{
 				it->draw();
 			}
-			i--;
+			waitTime--;
 		}
 	}
 

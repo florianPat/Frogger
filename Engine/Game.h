@@ -29,6 +29,7 @@
 #include <vector>
 #include "Lake.h"
 #include "Win.h"
+#include <random>
 
 class Game
 {
@@ -52,16 +53,20 @@ private:
 
 	Player player;
 
+	std::mt19937 rng;
+	std::uniform_int_distribution<int> distCarSpeed;
 	static constexpr int numCars = 5;
 	std::vector<Car> cars;
 
 	static constexpr float paddingBeforeLake = 32.0f;
 	float lakeHeight = gfx.ScreenHeight / 3.0f;
 	static constexpr int paddingAfterLake = 10;
+	static constexpr float paddingBetweenCars = 70.0f;
 	Lake lake;
 
-	static constexpr int waitTime = 120; //Make random every new turn
-	int delay = 0, i = waitTime;
+	std::uniform_int_distribution<int> distWaitTime;
+	int waitTime = 0;
+	int delay = 0;
 
 	Win win;
 	bool isWin = false;

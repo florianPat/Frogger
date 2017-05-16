@@ -5,23 +5,24 @@
 #include "Graphics.h"
 #include "Colors.h"
 #include <vector>
+#include <random>
 
 class Lake
 {
 public:
 	class Float
 	{
-		RectF boundingBox;
 		Vec2 pos;
+		RectF boundingBox;
 		int width;
 		static constexpr int height = 40;
 		static constexpr Color color = Colors::MakeRGB(165, 122, 11);
-		static constexpr int constSpeed = 50; //Make random
+		int constSpeed;
 		int speed;
 
 		Graphics& gfx;
 	public:
-		Float(int yPos, int width, int direction, Graphics& gfx);
+		Float(int yPos, int width, int direction, Graphics& gfx, int constSpeed);
 		void update(float dt);
 		void draw();
 		RectF getBoundingBox();
@@ -33,9 +34,13 @@ private:
 	static constexpr Color color = Colors::Blue;
 	static constexpr int numFloats = 5;
 
+	std::mt19937 rng;
+	std::uniform_int_distribution<int> distFloatSpeed;
+	std::uniform_int_distribution<int> distWaitTime;
+
 	std::vector<Float> floats;
-	static constexpr int waitTime = 120; //Make random every new turn
-	int delay = 0, i = waitTime;
+	int waitTime = 0;
+	int delay = 0;
 
 	Graphics& gfx;
 public:
