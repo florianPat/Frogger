@@ -33,4 +33,5 @@ public:
 	void update(float dt, bool* isWin);
 	void draw();
 	bool isColliding(RectF& other);
+	bool isColliding(Vec2& point, RectF& other);
 };

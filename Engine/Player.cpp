@@ -55,14 +55,31 @@ void Player::handlePhysik(bool* isWin, float dt)
 	if (isColliding(lake.getBoundingBox()))
 	{
 		bool isInWater = true;
+		int i = 0;
 
 		std::vector<Lake::Float> floatsBox = lake.getFloats();
 		for (auto it = floatsBox.begin(); it != floatsBox.end(); ++it)
 		{
-			if (isColliding(it->getBoundingBox()))
+			if (isColliding(Vec2(boundingBox.left, boundingBox.top), it->getBoundingBox()) || !isColliding(Vec2(boundingBox.right, boundingBox.bottom), lake.getBoundingBox()))
+			{
+				i++;
+			}
+			if(isColliding(Vec2(boundingBox.left, boundingBox.bottom), it->getBoundingBox()) || !isColliding(Vec2(boundingBox.right, boundingBox.bottom), lake.getBoundingBox()))
+			{
+				i++;
+			}
+			if (isColliding(Vec2(boundingBox.right, boundingBox.top), it->getBoundingBox()) || !isColliding(Vec2(boundingBox.right, boundingBox.bottom), lake.getBoundingBox()))
+			{
+				i++;
+			}
+			if (isColliding(Vec2(boundingBox.right, boundingBox.bottom), it->getBoundingBox()) || !isColliding(Vec2(boundingBox.right, boundingBox.bottom), lake.getBoundingBox()))
+			{
+				i++;
+			}
+
+			if (i >= 3)
 			{
 				isInWater = false;
-				pos.x += it->getSpeed() * dt;
 			}
 		}
 
@@ -100,4 +117,9 @@ void Player::draw()
 bool Player::isColliding(RectF & other)
 {
 	return boundingBox.IsOverlappingWith(other);
+}
+
+bool Player::isColliding(Vec2 & point, RectF & other)
+{
+	return (point.x > other.left && point.x < other.right && point.y > other.top && point.y < other.bottom);
 }
