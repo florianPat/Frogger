@@ -89,14 +89,14 @@ const WCHAR* WINAPI DXGetErrorStringW( _In_ HRESULT hr )
 // -------------------------------------------------------------
 // Common Win32 error codes
 // -------------------------------------------------------------
-        CHK_ERRA(S_OK)
-        CHK_ERRA(S_FALSE)
+         CHK_ERRA(S_OK)
+          CHK_ERRA(S_FALSE)
 
-        CHK_ERRA(E_UNEXPECTED)
-        CHK_ERRA(E_NOTIMPL)
-        CHK_ERRA(E_OUTOFMEMORY)
-        CHK_ERRA(E_INVALIDARG)
-        CHK_ERRA(E_NOINTERFACE)
+           CHK_ERRA(E_UNEXPECTED)
+           CHK_ERRA(E_NOTIMPL)
+          CHK_ERRA(E_OUTOFMEMORY)
+          CHK_ERRA(E_INVALIDARG)
+         CHK_ERRA(E_NOINTERFACE)
         CHK_ERRA(E_POINTER)
         CHK_ERRA(E_HANDLE)
         CHK_ERRA(E_ABORT)
